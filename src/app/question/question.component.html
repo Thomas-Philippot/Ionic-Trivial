@@ -1,0 +1,55 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{ pseudo }} à toi de jouer !</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-item>
+        <ion-grid>
+            <ion-radio-group [(ngModel)]="answered">
+                <ion-row>
+                    <ion-col>
+                        <ion-text>
+                            <h1>{{ question }}</h1>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="ion-padding-top">
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Réponse A</ion-label>
+                            <ion-radio color="primary" value="a"></ion-radio>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Réponse B</ion-label>
+                            <ion-radio color="primary" value="b"></ion-radio>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Réponse C</ion-label>
+                            <ion-radio color="primary" value="c"></ion-radio>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Réponse D</ion-label>
+                            <ion-radio color="primary" value="d"></ion-radio>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-radio-group>
+        </ion-grid>
+        </ion-item>
+    </ion-card-content>
+</ion-card>
+<ion-grid>
+    <ion-row class="ion-text-end">
+        <ion-col>
+            <ion-button [disabled]="!answered">Suivant</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-grid>
