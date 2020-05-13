@@ -16,13 +16,13 @@
                 <ion-row class="ion-padding-top">
                     <ion-col *ngFor="let item of answers">
                         <ion-item [ngClass]="{
-                            'good': (item == questions[current].correctAnswer && checkAnswer),
-                             'bad' : (item != questions[current].correctAnswer && checkAnswer)
+                            'good': (item == questions[current].correct_answer && checkAnswer),
+                             'bad' : (item != questions[current].correct_answer && checkAnswer)
                              }"
                         >
                             <ion-label>{{ item }}</ion-label>
                             <ion-radio
-                                [color]="checkAnswer == false ? 'primary' : (item == questions[current].correctAnswer) ? 'success' : 'danger'"
+                                [color]="checkAnswer == false ? 'primary' : (item == questions[current].correct_answer) ? 'success' : 'danger'"
                                 value="{{ item }}"
                                 (click)="check()"
                                 [disabled]="checkAnswer"

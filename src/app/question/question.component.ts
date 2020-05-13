@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionProvider} from '../providers/question.provider';
+import * as he from 'he';
 
 @Component({
     selector: 'app-question',
@@ -8,6 +9,7 @@ import {QuestionProvider} from '../providers/question.provider';
 })
 export class QuestionComponent implements OnInit {
     @Input() pseudo: string;
+    @Input() difficulty: string;
 
     public current = 0;
     public answered = '';
@@ -21,8 +23,11 @@ export class QuestionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.questionProvider.search().then((response) => {
+        this.questionProvider.search(this.difficulty).then((response) => {
             this.questions = response;
+            this.questions.forEach((item) => {
+                item.question = he.decode(item.question);
+            });
             this.fillAndSuffleQuestions();
         }).catch((err) => {
             console.log(err);
@@ -41,14 +46,14 @@ export class QuestionComponent implements OnInit {
     }
 
     setScore() {
-        if (this.answered === this.questions[this.current].correctAnswer) {
+        if (this.answered === this.questions[this.current].correct_answer) {
             this.score++;
         }
     }
 
     fillAndSuffleQuestions() {
-        this.answers = this.questions[this.current].incorrectAnswers;
-        this.answers.push(this.questions[this.current].correctAnswer);
+        this.answers = this.questions[this.current].incorrect_answers;
+        this.answers.push(this.questions[this.current].correct_answer);
         this.answers = this.randomize(this.answers);
     }
 

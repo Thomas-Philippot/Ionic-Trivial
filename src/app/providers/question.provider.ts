@@ -1,35 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Question} from '../modele/question';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class QuestionProvider {
-    constructor() {
+    constructor(private http: HttpClient) {
     }
 
-    search(): Promise<Array<Question>> {
-        return new Promise((resolve, reject) => {
-            resolve(
-                [
-                    {
-                        category: 'Entertainment: Japanese Anime & Manga',
-                        type: 'multiple',
-                        difficulty: 'easy',
-                        question: 'In "Fairy Tail", what is the nickname of Natsu Dragneel ?',
-                        correctAnswer: 'The Salamander',
-                        incorrectAnswers: ['The Dragon Slayer', 'The Dragon', 'The Demon']
-                    },
-                    {
-                        category: 'Entertainment: Video Games',
-                        type: 'boolean',
-                        difficulty: 'medium',
-                        question: '"Return to Castle Wolfenstein" was the only game of the ' +
-                            'Wolfenstein series where you don\'t' +
-                            ' play as William "B.J." Blazkowicz.',
-                        correctAnswer: 'False',
-                        incorrectAnswers: ['True']
-                    }
-                ]
-            );
+    search(difficulty): Promise<Array<Question>> {
+            let params = new HttpParams();
+            params = params.append('amount', '10');
+            params = params.append('difficulty', difficulty);
+            return new Promise((resolve, reject) => {
+            this.http.get('https://opentdb.com/api.php', { params }).toPromise().then((response) => {
+                resolve(response['results']);
+            }).catch((err) => {
+                reject(err);
+            });
         });
     }
 }
