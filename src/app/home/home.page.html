@@ -37,9 +37,8 @@
         <div class="ion-text-center danger">
           <ion-label *ngIf="error" color="danger">{{ error }}</ion-label>
         </div>
-        <ion-button (click)="register()">Commencer</ion-button>
+        <ion-button [routerLink]="['/game', pseudo, difficullty]" [disabled]="!registered()">Commencer</ion-button>
       </ion-card-content>
     </ion-card>
-    <app-question *ngIf="running" pseudo="{{ pseudo }}" difficulty="{{ difficullty }}"></app-question>
   </div>
 </ion-content>

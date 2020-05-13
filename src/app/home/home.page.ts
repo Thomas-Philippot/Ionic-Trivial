@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +11,20 @@ export class HomePage {
   public difficulties = ['easy', 'medium', 'hard'];
   public difficullty = 'easy';
   public error = '';
-  public running = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  register() {
+  registered() {
     if (!this.pseudo || this.pseudo.length < 3) {
       this.error = 'Veuillez rentrer un peudo et une difficulté';
-      return;
+      return false;
     }
     this.error = '';
-    this.start();
+    return true;
   }
+
   start() {
-    this.running = true;
+    this.router.navigate(['/game']);
   }
+
 }
