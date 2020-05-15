@@ -32,12 +32,12 @@
 
         <ion-item>
           <ion-label>Sauvegarder mes informations</ion-label>
-          <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+          <ion-checkbox color="primary" [(ngModel)]="remberMe" slot="start"></ion-checkbox>
         </ion-item>
         <div class="ion-text-center danger">
           <ion-label *ngIf="error" color="danger">{{ error }}</ion-label>
         </div>
-        <ion-button [routerLink]="['/game', pseudo, difficullty]" [disabled]="!registered()">Commencer</ion-button>
+        <ion-button (click)="start()" [disabled]="!registered()">Commencer</ion-button>
       </ion-card-content>
     </ion-card>
   </div>

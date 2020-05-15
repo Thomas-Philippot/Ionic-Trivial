@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,17 @@ export class HomePage {
   public difficulties = ['easy', 'medium', 'hard'];
   public difficullty = 'easy';
   public error = '';
+  public remberMe = false;
+  public loggedIn = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storage: Storage) {
+    storage.get('pseudo').then((val) => {
+      this.pseudo = val;
+    });
+    storage.get('difficulty').then((val) => {
+      this.difficullty = val;
+    });
+  }
 
   registered() {
     if (!this.pseudo || this.pseudo.length < 3) {
@@ -24,7 +34,9 @@ export class HomePage {
   }
 
   start() {
-    this.router.navigate(['/game']);
+    if (this.remberMe) {
+      this.storage.set('pseudo', this.pseudo).then();
+      this.storage.set('difficulty', this.difficullty).then();
+    }
   }
-
 }
